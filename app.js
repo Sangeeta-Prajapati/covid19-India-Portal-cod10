@@ -57,6 +57,7 @@ const authenticateToken = (request, response, next) => {
   } else {
     jwt.verify(jwtToken, "ghijklmnop", async (error, payload) => {
       if (error) {
+        response.status(401);
         response.send("Invalid JWT Token");
       } else {
         next();
@@ -81,7 +82,7 @@ app.post("/login/", async (request, response) => {
     if (isPasswordMatched === true) {
       const payload = { username: username };
       const jwtToken = jwt.sign(payload, "ghijklmnop");
-      //response.status(200);
+      response.status(401);
       response.send({ jwtToken });
     } else {
       response.status(400);
