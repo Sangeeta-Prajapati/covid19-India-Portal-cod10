@@ -82,7 +82,7 @@ app.post("/login/", async (request, response) => {
     if (isPasswordMatched === true) {
       const payload = { username: username };
       const jwtToken = jwt.sign(payload, "ghijklmnop");
-      response.status(401);
+      response.status(200);
       response.send({ jwtToken });
     } else {
       response.status(400);
@@ -154,7 +154,7 @@ app.delete(
   async (request, response) => {
     const { districtId } = request.params;
     const deleteQuery = `
-    SELECT * FROM district
+    DELETE FROM district
     WHERE 
     district_id = ${districtId};`;
     await db.run(deleteQuery);
